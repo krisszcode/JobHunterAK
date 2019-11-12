@@ -1,4 +1,5 @@
 import random
+import ui
 
 def generate_random():
     spec_char = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "/", "<", ">", "=", "?", "@"]
@@ -19,3 +20,26 @@ def check_valid_id(table, idx):
         if idx in row:
             return True
     return False
+
+def create_element(table, options):
+    mylist = []
+    idx = ""
+    
+    while True:
+        idx = generate_random()
+        if check_valid_id(table, idx) == False:
+            break
+
+    mylist.append(idx)
+    for i in range(len(options)):
+        mylist.append(ui.get_input(options[i]))
+    
+    return mylist
+
+def read_element(table, idx, options):
+    mydict = {}
+    for student in table:
+        if idx == student[0]:
+            for i, item in enumerate(student):
+                mydict.update({options[i]: item})
+    return mydict

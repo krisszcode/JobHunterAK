@@ -30,9 +30,46 @@ def choose():
     option = ui.get_input("\nPlease enter a number: ")
     table = data_manager.imports_from_file(myfile)
     if option == "1":
-        print()
+        ui.clear()
+        data_manager.export_to_file(myfile, create_position(table))
+    elif option == "2":
+        ui.clear()
+        idx = ui.get_input("Enter the position ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid position ID! ('{idx}')")
+        else:
+            ui.print_result(read_position(table, idx), "Position details")
     elif option == "0":
         return False
     else:
         raise KeyError(f"There is no such option. ({option})")
     return True
+
+def create_position(table):
+    options = [
+                "Enter a description: ",
+                "Enter the number of seats: ",
+                "Enter the company name: "
+                ]
+
+    table.append(common.create_element(table, options))
+    table[-1][-1] = get_company_data(data_manager.imports_from_file("company/companies.txt"), table[-1][-1], "id")
+    return table
+
+def read_position(table, idx):
+    options = ["ID", "Description", "Seats", "Company"]
+    mydict = common.read_element(table, idx, options)
+    mydict["Company"] = get_company_data(data_manager.imports_from_file("company/companies.txt"), mydict["Company"], "name")
+    return mydict
+
+def get_company_data(table, idx, data):
+    index = -1
+    if data == "id":
+        index = 0
+    elif data == "name":
+        index = 1
+
+    for company in table:
+        if idx in company:
+            return company[index]

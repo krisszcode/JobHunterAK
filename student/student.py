@@ -86,41 +86,19 @@ def choose():
         raise KeyError(f"There is no such option. ({option})")
     return True
 
-def show_table(table):
-    ui.clear()
-    titles = ["ID", "NAME", "AGE", "ACTIVE"]
-    ui.print_table(table, titles)
-
 def create_student(table):
-    mylist = []
     options = [
                 "Enter student name: ",
                 "Enter student age: ",
-                "Enter student activation status: "]
+                "Enter student activation status: "
+                ]
 
-    idx = ""
-    while True:
-        idx = common.generate_random()
-        if common.check_valid_id(table, idx) == False:
-            break
-
-    mylist.append(idx)
-    for i in range(len(options)):
-        mylist.append(ui.get_input(options[i]))
-
-    table.append(mylist)
-    
+    table.append(common.create_element(table, options))
     return table
 
 def read_student(table, idx):
-    mydict = {}
     options = ["ID", "Name", "Age", "Activation status"]
-    for student in table:
-        if idx == student[0]:
-            for i, item in enumerate(student):
-                mydict.update({options[i]: item})
-
-    return mydict
+    return common.read_element(table, idx, options)
 
 def read_students(table):
     mylist = []

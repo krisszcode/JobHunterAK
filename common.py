@@ -13,3 +13,9 @@ def generate_random():
         elif i == 6 or i == 7:
             generated += random.choice(spec_char) # Special characters
     return generated
+
+def check_valid_id(table, idx):
+    for row in table:
+        if idx in row:
+            return True
+    return False

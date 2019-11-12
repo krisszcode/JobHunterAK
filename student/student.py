@@ -36,12 +36,11 @@ def choose():
     elif option == "2":
         ui.clear()
         idx = ui.get_input("Enter the student ID: ")
-        result = read_student(table, idx)
-        if len(result) == 0:
+        if common.check_valid_id(table, idx) == False:
             ui.clear()
-            ui.print_error(f"Invalid student ID! ({idx})")
+            ui.print_error(f"Invalid student ID! ('{idx}')")
         else:
-            ui.print_result(result, "Student details")
+            ui.print_result(read_student(table, idx), "Student details")
     elif option == "3":
         ui.clear()
         result = read_students(table)
@@ -52,18 +51,19 @@ def choose():
             ui.print_result(result, "Students list")
     elif option == "4":
         ui.clear()
-        idx = ui.get_inputs(["Enter the item index: "], "")
-        update(table, idx[0])
-    elif option == "5":
-        ui.clear()
-        my_dict = get_counts_by_manufacturers(table)
-        ui.print_result(my_dict, "Count of manufacturer")
-    elif option == "6":
-        ui.clear()
-        idx = ui.get_inputs(["Enter a manufacturer: "], "")
-        number = get_average_by_manufacturer(table, idx[0])
-        ui.clear()
-        ui.print_result(number, "Average of manufacturer")
+        attributes = ["name", "age", "status"]
+        idx = ui.get_input("Enter student ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid student ID! ('{idx}')")
+            return True
+        update = ui.get_input("Which attribute do you want to change?\n")
+        update = update.lower()
+        if update not in attributes:
+            ui.clear()
+            ui.print_error(f"You cannot change this attribute! ('{update}')")
+        else:
+            data_manager.export_to_file(myfile, update_student(table, idx, update))
     elif option == "0":
         return False
     else:
@@ -109,4 +109,4 @@ def read_students(table):
                 mylist[i].append(student[n])
     return mylist
 
-def update_student(table):
+#def update_student(table):

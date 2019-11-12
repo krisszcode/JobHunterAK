@@ -72,6 +72,14 @@ def choose():
             ui.print_error(f"Invalid student ID! ('{idx}')")
         else:
             data_manager.export_to_file(myfile, update_student(table, idx, "status", get_new_status(table, idx)))
+    elif option == "6":
+        ui.clear()
+        idx = ui.get_input("Enter student ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid student ID! ('{idx}')")
+        else:
+            data_manager.export_to_file(myfile, delete_student(table, idx))
     elif option == "0":
         return False
     else:
@@ -134,3 +142,9 @@ def get_new_status(table, idx):
                 return "deactive"
             elif student[-1] == "deactive":
                 return "active"
+
+def delete_student(table, idx):
+    for i, student in enumerate(table):
+        if idx in student:
+            del table[i]
+            return table

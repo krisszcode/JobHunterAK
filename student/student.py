@@ -31,8 +31,8 @@ def choose():
     option = ui.get_input("\nPlease enter a number: ")
     table = data_manager.imports_from_file(myfile)
     if option == "1":
+        ui.clear()
         data_manager.export_to_file(myfile, create_student(table))
-
     elif option == "2":
         ui.clear()
         idx = ui.get_input("Enter the student ID: ")
@@ -42,11 +42,14 @@ def choose():
             ui.print_error(f"Invalid student ID! ({idx})")
         else:
             ui.print_result(result, "Student details")
-
     elif option == "3":
         ui.clear()
-        idx = ui.get_inputs(["Enter the item index: "], "")
-        data_manager.write_table_to_file("store/games.csv", remove(table, idx))
+        result = read_students(table)
+        if len(result) == 0:
+            ui.clear()
+            ui.print_error("There are no students in this list!")
+        else:
+            ui.print_result(result, "Students list")
     elif option == "4":
         ui.clear()
         idx = ui.get_inputs(["Enter the item index: "], "")
@@ -73,7 +76,6 @@ def show_table(table):
     ui.print_table(table, titles)
 
 def create_student(table):
-    ui.clear()
     mylist = []
     options = [
                 "Enter student name: ",
@@ -97,3 +99,14 @@ def read_student(table, idx):
                 mydict.update({options[i]: item})
 
     return mydict
+
+def read_students(table):
+    mylist = []
+    for i, student in enumerate(table):
+        mylist.append([])
+        for n in range(len(student)):
+            if n <= 1:
+                mylist[i].append(student[n])
+    return mylist
+
+def update_student(table):

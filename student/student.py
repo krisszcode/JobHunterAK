@@ -63,7 +63,15 @@ def choose():
             ui.clear()
             ui.print_error(f"You cannot change this attribute! ('{update}')")
         else:
-            data_manager.export_to_file(myfile, update_student(table, idx, update))
+            data_manager.export_to_file(myfile, update_student(table, idx, update, ui.get_input(f"Enter the new value of the {update}.\n")))
+    elif option == "5":
+        ui.clear()
+        idx = ui.get_input("Enter student ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid student ID! ('{idx}')")
+        else:
+            data_manager.export_to_file(myfile, update_student(table, idx, "status", get_new_status(table, idx)))
     elif option == "0":
         return False
     else:
@@ -109,4 +117,20 @@ def read_students(table):
                 mylist[i].append(student[n])
     return mylist
 
-#def update_student(table):
+def update_student(table, idx, att, new_att):
+    attributes = {"name": 1, "age": 2, "status": 3}
+    for i in range(len(table)):
+        student = table[i]
+        if student[0] == idx:
+            for n in range(len(student)):
+                if n == attributes[att]:
+                    table[i][n] = new_att
+    return table
+
+def get_new_status(table, idx):
+    for student in table:
+        if student[0] == idx:
+            if student[-1] == "active":
+                return "deactive"
+            elif student[-1] == "deactive":
+                return "active"

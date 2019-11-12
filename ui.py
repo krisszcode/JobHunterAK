@@ -2,13 +2,14 @@ def get_input(title):
     return input(title)
 
 def print_menu(title, options, exit):
+    clear()
     print(title.center(20, "#"))
     for i, opt in enumerate(options):
         print(f"({i+1}.) {opt}")
-    print(f"(0.) {exit}")
+    print(f"\n(0.) {exit}")
 
 def print_error(message):
-    print(f"[ERROR]: {message}!")
+    print(f"[ERROR]: {message}")
 
 def clear():
     for i in range(30):
@@ -28,7 +29,13 @@ def get_longest_width(table):
     return max_length
 
 def print_result(result, label):
-    print(f"{label}:\n - {result}")
+    clear()
+    if type(result) == dict:
+        print(f"{label}:\n")
+        for key in result:
+            print(f"{key}: {result[key]}")
+    else:
+        print(f"{label}:\n - {result}")
 
 def print_table(table, title_list):
     widths = []

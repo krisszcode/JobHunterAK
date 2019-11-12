@@ -1,5 +1,6 @@
 import ui
 import common
+import data_manager
 
 def start_module():
     ui.clear()
@@ -9,7 +10,8 @@ def start_module():
             if not choose():
                 break
             else:
-                ui.get_input('Press ENTER to continue')
+                ui.get_input('\nPress ENTER to continue')
+                ui.clear()
         except KeyError as err:
             ui.clear()
             ui.print_error(str(err))
@@ -25,12 +27,22 @@ def Show_menu():
     ui.print_menu("Student menu", options, "Back to main menu")
 
 def choose():
-    option = ui.get_inputs("Please enter a number: ")
-    table = data_manager.get_table_from_file("store/games.csv")
+    myfile = "student/students.txt"
+    option = ui.get_input("\nPlease enter a number: ")
+    table = data_manager.imports_from_file(myfile)
     if option == "1":
-        show_table(table)
+        data_manager.export_to_file(myfile, create_student(table))
+
     elif option == "2":
-        data_manager.write_table_to_file("store/games.csv", add(table))
+        ui.clear()
+        idx = ui.get_input("Enter the student ID: ")
+        result = read_student(table, idx)
+        if len(result) == 0:
+            ui.clear()
+            ui.print_error(f"Invalid student ID! ({idx})")
+        else:
+            ui.print_result(result, "Student details")
+
     elif option == "3":
         ui.clear()
         idx = ui.get_inputs(["Enter the item index: "], "")
@@ -72,4 +84,16 @@ def create_student(table):
     for i in range(len(options)):
         mylist.append(ui.get_input(options[i]))
 
-    return table.append(mylist)
+    table.append(mylist)
+    
+    return table
+
+def read_student(table, idx):
+    mydict = {}
+    options = ["ID", "Name", "Age", "Activation status"]
+    for student in table:
+        if idx == student[0]:
+            for i, item in enumerate(student):
+                mydict.update({options[i]: item})
+
+    return mydict

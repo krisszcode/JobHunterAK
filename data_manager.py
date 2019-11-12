@@ -13,7 +13,6 @@ def export_to_file(filename,table):
     with open(filename, "w") as file_handle:
         for record in table:
             row = ';'.join(record)
-            row.replace(";", ",")
             file_handle.write(row + "\n")
 
 

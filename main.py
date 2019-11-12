@@ -2,6 +2,7 @@ import sys
 import ui
 import data_manager
 from student import student
+from position import position
 
 def choose():
     option = ui.get_input("\nPlease enter a number: ")
@@ -10,7 +11,7 @@ def choose():
     elif option == "2":
         print()
     elif option == "3":
-        print()
+        position.start_module()
     elif option == "4":
         print()
     elif option == "0":

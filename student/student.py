@@ -98,7 +98,13 @@ def create_student(table):
                 "Enter student age: ",
                 "Enter student activation status: "]
 
-    mylist.append(common.generate_random())
+    idx = ""
+    while True:
+        idx = common.generate_random()
+        if common.check_valid_id(table, idx) == False:
+            break
+
+    mylist.append(idx)
     for i in range(len(options)):
         mylist.append(ui.get_input(options[i]))
 

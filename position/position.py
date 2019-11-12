@@ -34,5 +34,5 @@ def choose():
     elif option == "0":
         return False
     else:
-        raise KeyError("There is no such option.")
+        raise KeyError(f"There is no such option. ({option})")
     return True

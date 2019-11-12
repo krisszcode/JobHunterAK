@@ -2,7 +2,6 @@ def get_input(title):
     return input(title)
 
 def print_menu(title, options, exit):
-    clear()
     title = "|" + title + "|"
     print(f"{title.upper().center(20, '#')}\n")
     for i, opt in enumerate(options):
@@ -13,8 +12,8 @@ def print_error(message):
     print(f"[ERROR]: {message}")
 
 def clear():
-    for i in range(30):
-        print()
+    import os
+    os.system("clear")
 
 def print_result(result, label):
     clear()

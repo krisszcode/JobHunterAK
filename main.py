@@ -17,7 +17,7 @@ def choose():
     elif option == "0":
         sys.exit(0)
     else:
-        raise KeyError("There is no such option.")
+        raise KeyError(f"There is no such option. ({option})")
 
 def handle_menu():
     options = ["Student",
@@ -28,11 +28,13 @@ def handle_menu():
     ui.print_menu("Main menu", options, "Exit")
 
 def main():
+    ui.clear()
     while True:
         handle_menu()
         try:
             choose()
         except KeyError as err:
+            ui.clear()
             ui.print_error(str(err))
 
 if __name__ == '__main__':

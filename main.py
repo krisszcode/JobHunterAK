@@ -4,9 +4,10 @@ import data_manager
 from student import student
 from position import position
 from company import company
+from application import application
 
 def choose():
-    option = ui.get_input("\nPlease enter a number: ")
+    option = ui.get_inputs("\nPlease enter a number: ")
     if option == "1":
         student.start_module()
     elif option == "2":
@@ -14,7 +15,7 @@ def choose():
     elif option == "3":
         position.start_module()
     elif option == "4":
-        print()
+        application.start_module()
     elif option == "0":
         sys.exit(0)
     else:

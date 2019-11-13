@@ -10,7 +10,7 @@ def start_module():
             if not choose():
                 break
             else:
-                ui.get_input('\nPress ENTER to continue')
+                ui.get_inputs('\nPress ENTER to continue')
                 ui.clear()
         except KeyError as err:
             ui.clear()
@@ -27,7 +27,7 @@ def Show_menu():
 
 def choose():
     myfile = "position/positions.txt"
-    option = ui.get_input("\nPlease enter a number: ")
+    option = ui.get_inputs("\nPlease enter a number: ")
     table = data_manager.imports_from_file(myfile)
     if option == "1":
         ui.clear()
@@ -35,7 +35,7 @@ def choose():
     elif option == "2":
         # ++
         ui.clear()
-        idx = ui.get_input("Enter the position ID: ")
+        idx = ui.get_inputs("Enter the position ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid position ID! ('{idx}')")
@@ -49,19 +49,19 @@ def choose():
             ui.clear()
             ui.print_error("There are no positions in this list!")
         else:
-            ui.print_result(result, "Positions list")
+            show_table(result)
     elif option == "4":
         ui.clear()
-        idx = ui.get_input("Enter position ID: ")
+        idx = ui.get_inputs("Enter position ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid position ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, update_position(table, idx, "description", ui.get_input("Enter the new value of the description.\n")))
+            data_manager.export_to_file(myfile, update_position(table, idx, "description", ui.get_inputs("Enter the new value of the description.\n")))
     elif option == "5":
         # ++
         ui.clear()
-        idx = ui.get_input("Enter position ID: ")
+        idx = ui.get_inputs("Enter position ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid position ID! ('{idx}')")
@@ -106,3 +106,7 @@ def update_position(table, idx, att, new_att):
     attributes = {"description": 1}
     table = common.update_element(table, idx, att, new_att, attributes)
     return table
+
+def show_table(table):
+    titles = ["ID", "DESCRIPTION", "SEATS", "COMPANY_ID"]
+    ui.print_table(table, titles)

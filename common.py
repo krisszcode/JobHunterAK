@@ -32,7 +32,7 @@ def create_element(table, options):
 
     mylist.append(idx)
     for i in range(len(options)):
-        mylist.append(ui.get_input(options[i]))
+        mylist.append(ui.get_inputssssss(options[i]))
     
     return mylist
 

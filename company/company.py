@@ -10,7 +10,7 @@ def start_module():
             if not choose():
                 break
             else:
-                ui.get_input('\nPress ENTER to continue')
+                ui.get_inputs('\nPress ENTER to continue')
                 ui.clear()
         except KeyError as err:
             ui.clear()
@@ -27,14 +27,14 @@ def Show_menu():
 
 def choose():
     myfile = "company/companies.txt"
-    option = ui.get_input("\nPlease enter a number: ")
+    option = ui.get_inputs("\nPlease enter a number: ")
     table = data_manager.imports_from_file(myfile)
     if option == "1":##Create company
         ui.clear()
         data_manager.export_to_file(myfile, create_company(table))
     elif option == "2":##Read company
         ui.clear()
-        idx = ui.get_input("Enter the company ID: ")
+        idx = ui.get_inputs("Enter the company ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
@@ -47,24 +47,24 @@ def choose():
             ui.clear()
             ui.print_error("There are no company in this list!")
         else:
-            ui.print_result(result, "List of companies")
+            show_table(result)
     elif option == "4":##Update Company
         ui.clear()
-        idx = ui.get_input("Enter company ID: ")
+        idx = ui.get_inputs("Enter company ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
             return True
         else:
             update = "name"
-            company= ui.get_input(f"Enter the new value of the {update}.\n")
+            company= ui.get_inputs(f"Enter the new value of the {update}.\n")
             if common.check_valid_id(table, company):
                 ui.print_error(f"This company {company} is already taken!")
             else:
                 data_manager.export_to_file(myfile, update_company(table, idx, update, company))
     elif option == "5":##Delete company
         ui.clear()
-        idx = ui.get_input("Enter company ID: ")
+        idx = ui.get_inputs("Enter company ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
@@ -90,3 +90,7 @@ def update_company(table, idx, att, new_att):
     attributes = {"name": 1}
     table = common.update_element(table, idx, att, new_att, attributes)
     return table
+
+def show_table(table):
+    titles = ["ID", "NAME"]
+    ui.print_table(table, titles)

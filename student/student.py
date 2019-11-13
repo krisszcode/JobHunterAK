@@ -10,7 +10,7 @@ def start_module():
             if not choose():
                 break
             else:
-                ui.get_input('\nPress ENTER to continue')
+                ui.get_inputs('\nPress ENTER to continue')
                 ui.clear()
         except KeyError as err:
             ui.clear()
@@ -28,7 +28,7 @@ def Show_menu():
 
 def choose():
     myfile = "student/students.txt"
-    option = ui.get_input("\nPlease enter a number: ")
+    option = ui.get_inputs("\nPlease enter a number: ")
     table = data_manager.imports_from_file(myfile)
     if option == "1":
         ui.clear()
@@ -36,7 +36,7 @@ def choose():
     elif option == "2":
         # ++
         ui.clear()
-        idx = ui.get_input("Enter the student ID: ")
+        idx = ui.get_inputs("Enter the student ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
@@ -49,25 +49,25 @@ def choose():
             ui.clear()
             ui.print_error("There are no students in this list!")
         else:
-            ui.print_result(result, "Students list")
+            show_table(result)
     elif option == "4":
         ui.clear()
         attributes = ["name", "age", "status"]
-        idx = ui.get_input("Enter student ID: ")
+        idx = ui.get_inputs("Enter student ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
             return True
-        update = ui.get_input("Which attribute do you want to change?\n")
+        update = ui.get_inputs("Which attribute do you want to change?\n")
         update = update.lower()
         if update not in attributes:
             ui.clear()
             ui.print_error(f"You cannot change this attribute! ('{update}')")
         else:
-            data_manager.export_to_file(myfile, update_student(table, idx, update, ui.get_input(f"Enter the new value of the {update}.\n")))
+            data_manager.export_to_file(myfile, update_student(table, idx, update, ui.get_inputs(f"Enter the new value of the {update}.\n")))
     elif option == "5":
         ui.clear()
-        idx = ui.get_input("Enter student ID: ")
+        idx = ui.get_inputs("Enter student ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
@@ -76,7 +76,7 @@ def choose():
     elif option == "6":
         # ++
         ui.clear()
-        idx = ui.get_input("Enter student ID: ")
+        idx = ui.get_inputs("Enter student ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
@@ -126,3 +126,6 @@ def get_new_status(table, idx):
             elif student[-1] == "deactive":
                 return "active"
 
+def show_table(table):
+    titles = ["ID", "NAME"]
+    ui.print_table(table, titles)

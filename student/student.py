@@ -34,6 +34,7 @@ def choose():
         ui.clear()
         data_manager.export_to_file(myfile, create_student(table))
     elif option == "2":
+        # ++
         ui.clear()
         idx = ui.get_input("Enter the student ID: ")
         if common.check_valid_id(table, idx) == False:
@@ -73,6 +74,7 @@ def choose():
         else:
             data_manager.export_to_file(myfile, update_student(table, idx, "status", get_new_status(table, idx)))
     elif option == "6":
+        # ++
         ui.clear()
         idx = ui.get_input("Enter student ID: ")
         if common.check_valid_id(table, idx) == False:

@@ -60,6 +60,7 @@ def update_element(table, idx, att, new_att, options):
                 if n == options[att]:
                     table[i][n] = new_att
     return table
+    
 def delete_elements(table, idx):
     for i, item in enumerate(table):
         if idx in item:

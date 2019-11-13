@@ -66,7 +66,7 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid position ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, common.delete_elements(table, idx))
+            data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -103,9 +103,7 @@ def get_company_data(table, idx, data):
             return company[index]
 
 def update_position(table, idx, att, new_att):
-    attributes = {"description": 1}
-    table = common.update_element(table, idx, att, new_att, attributes)
-    return table
+    return common.update_element(table, idx, att, new_att, {"description": 1})
 
 def show_table(table):
     titles = ["ID", "DESCRIPTION", "SEATS", "COMPANY_ID"]

@@ -81,7 +81,7 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, common.delete_elements(table, idx))
+            data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -115,8 +115,7 @@ def read_students(table):
 
 def update_student(table, idx, att, new_att):
     attributes = {"name": 1, "age": 2, "status": 3}
-    table = common.update_element(table, idx, att, new_att, attributes)
-    return table
+    return common.update_element(table, idx, att, new_att, attributes)
 
 def get_new_status(table, idx):
     for student in table:

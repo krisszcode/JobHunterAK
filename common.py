@@ -32,7 +32,7 @@ def create_element(table, options):
 
     mylist.append(idx)
     for i in range(len(options)):
-        mylist.append(ui.get_inputssssss(options[i]))
+        mylist.append(ui.get_inputs(options[i]))
     
     return mylist
 
@@ -61,7 +61,7 @@ def update_element(table, idx, att, new_att, options):
                     table[i][n] = new_att
     return table
     
-def delete_elements(table, idx):
+def delete_element(table, idx):
     for i, item in enumerate(table):
         if idx in item:
             del table[i]

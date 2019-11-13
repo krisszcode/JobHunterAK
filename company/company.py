@@ -56,12 +56,11 @@ def choose():
             ui.print_error(f"Invalid company ID! ('{idx}')")
             return True
         else:
-            update = "name"
-            company= ui.get_inputs(f"Enter the new value of the {update}.\n")
+            company = ui.get_inputs("Enter the new value of the name.\n")
             if common.check_valid_id(table, company):
-                ui.print_error(f"This company {company} is already taken!")
+                ui.print_error(f"This company ('{company}') is already taken!")
             else:
-                data_manager.export_to_file(myfile, update_company(table, idx, update, company))
+                data_manager.export_to_file(myfile, update_company(table, idx, "name", company))
     elif option == "5":##Delete company
         ui.clear()
         idx = ui.get_inputs("Enter company ID: ")
@@ -69,7 +68,7 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, common.delete_elements(table, idx))
+            data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -78,8 +77,7 @@ def choose():
     return True
 
 def create_company(table):
-    options = ["Enter company name: "]
-    table.append(common.create_element(table, options))
+    table.append(common.create_element(table, ["Enter company name: "]))
     return table
 
 def read_company(table, idx):
@@ -87,9 +85,7 @@ def read_company(table, idx):
     return common.read_element(table, idx, options)
 
 def update_company(table, idx, att, new_att):
-    attributes = {"name": 1}
-    table = common.update_element(table, idx, att, new_att, attributes)
-    return table
+    return common.update_element(table, idx, att, new_att, {"name": 1})
 
 def show_table(table):
     titles = ["ID", "NAME"]

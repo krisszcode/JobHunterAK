@@ -33,6 +33,7 @@ def choose():
         ui.clear()
         data_manager.export_to_file(myfile, create_position(table))
     elif option == "2":
+        # ++
         ui.clear()
         idx = ui.get_input("Enter the position ID: ")
         if common.check_valid_id(table, idx) == False:
@@ -41,6 +42,7 @@ def choose():
         else:
             ui.print_result(read_position(table, idx), "Position details")
     elif option == "3":
+        # ++
         ui.clear()
         result = common.read_elements(table)
         if len(result) == 0:
@@ -50,19 +52,21 @@ def choose():
             ui.print_result(result, "Positions list")
     elif option == "4":
         ui.clear()
-        attributes = ["description", "seats"]
         idx = ui.get_input("Enter position ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid position ID! ('{idx}')")
-            return True
-        update = ui.get_input("Which attribute do you want to change?\n")
-        update = update.lower()
-        if update not in attributes:
-            ui.clear()
-            ui.print_error(f"You cannot change this attribute! ('{update}')")
         else:
-            data_manager.export_to_file(myfile, update_position(table, idx, update, ui.get_input(f"Enter the new value of the {update}.\n")))
+            data_manager.export_to_file(myfile, update_position(table, idx, "description", ui.get_input("Enter the new value of the description.\n")))
+    elif option == "5":
+        # ++
+        ui.clear()
+        idx = ui.get_input("Enter position ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid position ID! ('{idx}')")
+        else:
+            data_manager.export_to_file(myfile, common.delete_elements(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -99,6 +103,6 @@ def get_company_data(table, idx, data):
             return company[index]
 
 def update_position(table, idx, att, new_att):
-    attributes = {"description": 1, "seats": 2}
+    attributes = {"description": 1}
     table = common.update_element(table, idx, att, new_att, attributes)
     return table

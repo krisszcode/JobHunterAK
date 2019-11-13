@@ -65,7 +65,7 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, delete_company(table, idx))
+            data_manager.export_to_file(myfile, common.delete_elements(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -75,7 +75,6 @@ def choose():
 
 def create_company(table):
     options = ["Enter company name: "]
-
     table.append(common.create_element(table, options))
     return table
 
@@ -83,4 +82,3 @@ def read_company(table, idx):
     options = ["ID", "Name"]
     return common.read_element(table, idx, options)
 
- 

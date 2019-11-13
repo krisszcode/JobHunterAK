@@ -113,12 +113,7 @@ def read_students(table):
 
 def update_student(table, idx, att, new_att):
     attributes = {"name": 1, "age": 2, "status": 3}
-    for i in range(len(table)):
-        student = table[i]
-        if student[0] == idx:
-            for n in range(len(student)):
-                if n == attributes[att]:
-                    table[i][n] = new_att
+    table = common.update_element(table, idx, att, new_att, attributes)
     return table
 
 def get_new_status(table, idx):

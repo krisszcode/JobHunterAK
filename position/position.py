@@ -48,6 +48,21 @@ def choose():
             ui.print_error("There are no positions in this list!")
         else:
             ui.print_result(result, "Positions list")
+    elif option == "4":
+        ui.clear()
+        attributes = ["description", "seats"]
+        idx = ui.get_input("Enter position ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid position ID! ('{idx}')")
+            return True
+        update = ui.get_input("Which attribute do you want to change?\n")
+        update = update.lower()
+        if update not in attributes:
+            ui.clear()
+            ui.print_error(f"You cannot change this attribute! ('{update}')")
+        else:
+            data_manager.export_to_file(myfile, update_position(table, idx, update, ui.get_input(f"Enter the new value of the {update}.\n")))
     elif option == "0":
         ui.clear()
         return False
@@ -82,3 +97,8 @@ def get_company_data(table, idx, data):
     for company in table:
         if idx in company:
             return company[index]
+
+def update_position(table, idx, att, new_att):
+    attributes = {"description": 1, "seats": 2}
+    table = common.update_element(table, idx, att, new_att, attributes)
+    return table

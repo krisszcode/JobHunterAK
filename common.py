@@ -51,3 +51,12 @@ def read_elements(table):
         for n in range(len(item)):
             mylist[i].append(item[n])
     return mylist
+
+def update_element(table, idx, att, new_att, options):
+    for i in range(len(table)):
+        item = table[i]
+        if item[0] == idx:
+            for n in range(len(item)):
+                if n == options[att]:
+                    table[i][n] = new_att
+    return table

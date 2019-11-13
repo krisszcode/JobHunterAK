@@ -3,13 +3,14 @@ import ui
 import data_manager
 from student import student
 from position import position
+from company import company
 
 def choose():
     option = ui.get_input("\nPlease enter a number: ")
     if option == "1":
         student.start_module()
     elif option == "2":
-        print()
+        company.start_module()
     elif option == "3":
         position.start_module()
     elif option == "4":

@@ -43,3 +43,11 @@ def read_element(table, idx, options):
             for i, item in enumerate(student):
                 mydict.update({options[i]: item})
     return mydict
+
+def read_elements(table):
+    mylist = []
+    for i, item in enumerate(table):
+        mylist.append([])
+        for n in range(len(item)):
+            mylist[i].append(item[n])
+    return mylist

@@ -81,6 +81,7 @@ def choose():
         else:
             data_manager.export_to_file(myfile, delete_student(table, idx))
     elif option == "0":
+        ui.clear()
         return False
     else:
         raise KeyError(f"There is no such option. ({option})")
@@ -102,11 +103,12 @@ def read_student(table, idx):
 
 def read_students(table):
     mylist = []
-    for i, student in enumerate(table):
+    temp = common.read_elements(table)
+    for n, student in enumerate(temp):
         mylist.append([])
-        for n in range(len(student)):
-            if n <= 1:
-                mylist[i].append(student[n])
+        for i in range(len(student)):
+            if i <= 1:
+                mylist[n].append(student[i])
     return mylist
 
 def update_student(table, idx, att, new_att):

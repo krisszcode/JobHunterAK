@@ -40,7 +40,16 @@ def choose():
             ui.print_error(f"Invalid position ID! ('{idx}')")
         else:
             ui.print_result(read_position(table, idx), "Position details")
+    elif option == "3":
+        ui.clear()
+        result = common.read_elements(table)
+        if len(result) == 0:
+            ui.clear()
+            ui.print_error("There are no positions in this list!")
+        else:
+            ui.print_result(result, "Positions list")
     elif option == "0":
+        ui.clear()
         return False
     else:
         raise KeyError(f"There is no such option. ({option})")

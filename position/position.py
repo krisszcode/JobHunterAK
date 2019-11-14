@@ -57,7 +57,6 @@ def choose():
         else:
             data_manager.export_to_file(myfile, update_position(table, idx, "description", ui.get_inputs("Enter the new value of the description.\n")))
     elif option == "5":
-        # ++
         ui.clear()
         idx = ui.get_inputs("Enter position ID: ")
         if common.check_valid_id(table, idx) == False:

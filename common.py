@@ -79,3 +79,17 @@ def check_if_exist(table, idx):
         if row[3] == idx:
             return True
         return False
+
+def check_data_in_app(idx, data):
+    applications = data_manager.imports_from_file("application/applications.txt")
+
+    if data == "student":
+        index = -2
+    elif data == "position":
+        index = -1
+
+    for item in applications:
+        if item[index] == idx:
+            return True
+
+    return False

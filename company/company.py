@@ -35,11 +35,13 @@ def choose():
     elif option == "2":##Read company
         ui.clear()
         idx = ui.get_inputs("Enter the company ID: ")
+        positions = data_manager.imports_from_file("position/positions.txt")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
         else:
             ui.print_result(read_company(table, idx), "Company details")
+            ui.print_result_with_one_print(positions_by_companies(idx, positions), "Open positions")
     elif option == "3":##Read Companies
         ui.clear()
         result = common.read_elements(table)
@@ -64,11 +66,16 @@ def choose():
     elif option == "5":##Delete company
         ui.clear()
         idx = ui.get_inputs("Enter company ID: ")
+        positions = data_manager.imports_from_file("position/positions.txt")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
         else:
-            data_manager.export_to_file(myfile, common.delete_element(table, idx))
+            if common.check_if_exist(positions, idx) == False:
+                ui.clear()
+                ui.print_error(f"This company has an open position!")
+            else:
+                data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -83,6 +90,13 @@ def create_company(table):
 def read_company(table, idx):
     options = ["ID", "Name"]
     return common.read_element(table, idx, options)
+
+def positions_by_companies(idx, positions):
+    open_pos = []
+    for row in positions:
+        if row[3] == idx:
+            open_pos.append(row[1])
+    return open_pos
 
 def update_company(table, idx, att, new_att):
     return common.update_element(table, idx, att, new_att, {"name": 1})

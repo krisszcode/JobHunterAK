@@ -73,3 +73,8 @@ def check_if_applied(table, idx):
             return True
         return False
             
+def check_if_exist(table, idx):
+    for row in table:
+        if row[3] == idx:
+            return True
+        return False

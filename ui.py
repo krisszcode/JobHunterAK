@@ -64,3 +64,18 @@ def get_longest_width(mylist):
         if len(i) > max_length:
             max_length = len(i)
     return max_length
+
+def print_result_with_one_print(result, label):
+    print()
+    if type(result) == dict:
+        print(f"{label}:\n")
+        for key in result:
+            print(f"{key}: {result[key]}")
+
+    elif type(result) == list:
+        print(f"{label}:\n")
+        for item in result:
+            print(item)
+
+    else:
+        print(f"{label}:\n - {result}")

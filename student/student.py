@@ -41,7 +41,8 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
         else:
-            ui.print_result(read_student(table, idx), "Student details")
+            result = get_student_applications(idx, read_student(table, idx))
+            ui.print_result(result, "Student details")
     elif option == "3":
         ui.clear()
         result = read_students(table)
@@ -128,3 +129,48 @@ def get_new_status(table, idx):
 def show_table(table):
     titles = ["ID", "NAME"]
     ui.print_table(table, titles)
+
+def get_student_applications(idx, mydict):
+    applications = data_manager.imports_from_file("application/applications.txt")
+    options = ["Application ID","Status","Position"]
+    title = ""
+    app_count = 0
+
+    for i, item in enumerate(applications):
+        if item[2] == idx:
+            app_count += 1
+            for n in range(len(item)):
+                if n < 3:
+                    title = f"{app_count}_{options[n]}"
+                else:
+                    continue
+
+                if n == 2:
+                    mydict.update({title: get_position_by_id(item[-1])})
+                    mydict.update({f"{app_count}_Company": get_company_name_by_pid(item[-1])})
+                else:
+                    mydict.update({title: item[n]})
+
+    return mydict
+
+def get_position_by_id(idx):
+    positions = data_manager.imports_from_file("position/positions.txt")
+
+    for position in positions:
+        if position[0] == idx:
+            return position[1]
+
+def get_company_name_by_pid(idx):
+    positions = data_manager.imports_from_file("position/positions.txt")
+    c_id = -1
+
+    for position in positions:
+        if position[0] == idx:
+            c_id = position[3]
+            break
+
+    companies = data_manager.imports_from_file("company/companies.txt")
+
+    for company in companies:
+        if company[0] == c_id:
+            return company[1]

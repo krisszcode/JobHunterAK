@@ -81,7 +81,7 @@ def choose():
             ui.print_error(f"Invalid student ID! ('{idx}')")
             return True
             
-        if check_student_app(idx) == True:
+        if common.check_data_in_app(idx, "student") == True:
             ui.clear()
             ui.print_error("You cannot delete this student!")
         else:
@@ -177,12 +177,3 @@ def get_company_name_by_pid(idx):
     for company in companies:
         if company[0] == c_id:
             return company[1]
-
-def check_student_app(idx):
-    applications = data_manager.imports_from_file("application/applications.txt")
-
-    for item in applications:
-        if item[-2] == idx:
-            return True
-    
-    return False

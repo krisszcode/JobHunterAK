@@ -1,5 +1,6 @@
 import random
 import ui
+import data_manager
 
 def generate_random():
     spec_char = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "/", "<", ">", "=", "?", "@"]

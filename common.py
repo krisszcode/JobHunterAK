@@ -70,8 +70,6 @@ def delete_element(table, idx):
 def check_if_applied(table, idx):
     for row in table:
         if row[0] == idx and row[1] == "applied":
-            row[1] = "not applied"
             return True
-        else:
-            return False
+        return False
             

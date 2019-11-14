@@ -45,7 +45,6 @@ def choose():
             else:    
                 data_manager.export_to_file(myfile, create_applicaion(table, opt, comp_name, student_id, companies))
     elif option == "2":##Update Applications
-        '''
         ui.clear()
         idx = ui.get_inputs("Enter application ID: ")
         if common.check_valid_id(table, idx) == False:
@@ -53,14 +52,22 @@ def choose():
             ui.print_error(f"Invalid application ID! ('{idx}')")
             return True
         else:
-            if check_if_applied(table, idx) == False:
+            if common.check_if_applied(table, idx) == False:
                 ui.clear()
-                ui.print_error("You cant modify not accepted status")
+                ui.print_error("You cant modify not applied status")
             else:
-                data_manager.export_to_file
-        '''
+                for row in table:
+                    if row[0] == idx:
+                        row[1] = "not applied"
+                data_manager.export_to_file(myfile, table)
     elif option == "3":
-        pass
+        ui.clear()
+        idx = ui.get_inputs("Enter application ID: ")
+        if common.check_valid_id(table, idx) == False:
+            ui.clear()
+            ui.print_error(f"Invalid application ID! ('{idx}')")
+        else:
+            data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
         ui.clear()
         return False
@@ -94,5 +101,3 @@ def create_applicaion(table, opt, comp_name, student_id, companies):
     table.append(kakao)
     return table
 
-def update_application(table, idx, att, new_att):
-    return common.update_element(table, idx, att, new_att, {"name": 1})

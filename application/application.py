@@ -74,9 +74,6 @@ def create_applicaion(table, opt, comp_name, student_id, companies):
         if row[1] == comp_name:
             comp_id = row[0]
     
-    '''
-    ops = common.create_element(table, [opt])
-    '''
     idx = ""
     
     while True:

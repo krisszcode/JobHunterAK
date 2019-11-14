@@ -19,7 +19,8 @@ def start_module():
 def Show_menu():
     options = ["Create Application",
                 "Update Application",
-                "Delete Application"
+                "Delete Application",
+                "Read Applications"
                 ]
     ui.print_menu("Application menu", options, "Back to main menu")
 
@@ -67,6 +68,14 @@ def choose():
             ui.print_error(f"Invalid application ID! ('{idx}')")
         else:
             data_manager.export_to_file(myfile, common.delete_element(table, idx))
+    elif option == "4":
+        ui.clear()
+        result = common.read_elements(table)
+        if len(result) == 0:
+            ui.clear()
+            ui.print_error("There are no application in this list!")
+        else:
+            show_table(result)
     elif option == "0":
         ui.clear()
         return False
@@ -100,3 +109,6 @@ def create_applicaion(table, opt, pos_name, student_id, positions):
     table.append(kakao)
     return table
 
+def show_table(table):
+    titles = ["Application_id", "Status","Student_id", "Positon_id" ]
+    ui.print_table(table, titles)

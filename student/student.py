@@ -34,7 +34,6 @@ def choose():
         ui.clear()
         data_manager.export_to_file(myfile, create_student(table))
     elif option == "2":
-        # ++
         ui.clear()
         idx = ui.get_inputs("Enter the student ID: ")
         if common.check_valid_id(table, idx) == False:
@@ -75,12 +74,16 @@ def choose():
         else:
             data_manager.export_to_file(myfile, update_student(table, idx, "status", get_new_status(table, idx)))
     elif option == "6":
-        # ++
         ui.clear()
         idx = ui.get_inputs("Enter student ID: ")
         if common.check_valid_id(table, idx) == False:
             ui.clear()
             ui.print_error(f"Invalid student ID! ('{idx}')")
+            return True
+            
+        if check_student_app(idx) == True:
+            ui.clear()
+            ui.print_error("You cannot delete this student!")
         else:
             data_manager.export_to_file(myfile, common.delete_element(table, idx))
     elif option == "0":
@@ -174,3 +177,12 @@ def get_company_name_by_pid(idx):
     for company in companies:
         if company[0] == c_id:
             return company[1]
+
+def check_student_app(idx):
+    applications = data_manager.imports_from_file("application/applications.txt")
+
+    for item in applications:
+        if item[-2] == idx:
+            return True
+    
+    return False

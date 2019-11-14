@@ -29,21 +29,20 @@ def choose():
     table = data_manager.imports_from_file(myfile)
     if option == "1":
         ui.clear()
-        companies = data_manager.imports_from_file("company/companies.txt")
-        comp_name = ui.get_inputs("Enter a company name to apply: ")
+        pos_name = ui.get_inputs("Enter a position name to apply: ")
         positions = data_manager.imports_from_file("position/positions.txt")
         student_id = ui.get_inputs("Enter a student id to apply: ")
         students = data_manager.imports_from_file("student/students.txt")
         opt = ui.get_inputs("Enter the status(applied/not applied): ")
-        if common.check_valid_id(companies, comp_name) == False or common.check_valid_id(students, student_id) == False:
+        if common.check_valid_id(positions, pos_name) == False or common.check_valid_id(students, student_id) == False:
             ui.clear()
-            ui.print_error("Non existing company or student!")
+            ui.print_error("Non existing position or student!")
         else:
             if opt != "applied" and opt != "not applied":
                 ui.clear()
                 ui.print_error("Thats not an option")
             else:    
-                data_manager.export_to_file(myfile, create_applicaion(table, opt, comp_name, student_id, companies))
+                data_manager.export_to_file(myfile, create_applicaion(table, opt, pos_name, student_id, positions))
     elif option == "2":##Update Applications
         ui.clear()
         idx = ui.get_inputs("Enter application ID: ")
@@ -75,11 +74,11 @@ def choose():
         raise KeyError(f"There is no such option. ({option})")
     return True
 
-def create_applicaion(table, opt, comp_name, student_id, companies):
-    comp_id = -1
-    for row in companies:
-        if row[1] == comp_name:
-            comp_id = row[0]
+def create_applicaion(table, opt, pos_name, student_id, positions):
+    pos_id = -1
+    for row in positions:
+        if row[1] == pos_name:
+            pos_id = row[0]
     
     idx = ""
     
@@ -95,7 +94,7 @@ def create_applicaion(table, opt, comp_name, student_id, companies):
     for i in ops:
         temp.append(i)
     temp.append(student_id)
-    temp.append(comp_id)
+    temp.append(pos_id)
     kakao = []
     kakao.extend(temp)
     table.append(kakao)

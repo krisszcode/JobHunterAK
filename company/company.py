@@ -71,7 +71,7 @@ def choose():
             ui.clear()
             ui.print_error(f"Invalid company ID! ('{idx}')")
         else:
-            if common.check_if_exist(positions, idx) == False:
+            if common.check_if_exist(positions, idx) == True:
                 ui.clear()
                 ui.print_error(f"This company has an open position!")
             else:

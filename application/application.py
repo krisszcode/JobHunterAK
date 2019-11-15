@@ -52,7 +52,7 @@ def choose():
             ui.print_error(f"Invalid application ID! ('{idx}')")
             return True
         else:
-            if common.check_if_applied(table, idx) == False:
+            if common.check_if_applied(table, idx) == True:
                 ui.clear()
                 ui.print_error("You cant modify not applied status")
             else:

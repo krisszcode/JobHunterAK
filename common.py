@@ -71,14 +71,14 @@ def delete_element(table, idx):
 def check_if_applied(table, idx):
     for row in table:
         if row[0] == idx and row[1] == "applied":
-            return True
-        return False
+            return False
+    return True
             
 def check_if_exist(table, idx):
     for row in table:
         if row[3] == idx:
             return True
-        return False
+    return False
 
 def check_data_in_app(idx, data):
     applications = data_manager.imports_from_file("application/applications.txt")
